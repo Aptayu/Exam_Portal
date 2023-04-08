@@ -1,6 +1,9 @@
 package com.exam.serviceImpl;
 
+import java.util.Optional;
 import java.util.Set;
+
+import javax.management.AttributeNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +38,34 @@ public class UserServiceImpl implements UserService {
 				Role role = roleRepo.save(ur.getRole());
 			}
 			user.getUserRole().addAll(userRoles);
-			userRepo.save(user);
+			local = userRepo.save(user);
 		}
 		
-		return null;
+		return local;
+	}
+
+	@Override
+	public User getUserByUserName(String username) {
+		// TODO Auto-generated method stub
+		return this.userRepo.findByUserName(username);
+	}
+
+	@Override
+	public void deleteUser(Long userId) {
+		// TODO Auto-generated method stub
+		this.userRepo.deleteById(userId);
+		
+	}
+
+	@Override
+	public User updateUser(Long userid, User newUser) throws Exception {
+		// TODO Auto-generated method stub
+		return userRepo.findById(userid)
+                .map(user -> {
+                    user.setUserName(newUser.getUserName());
+                    user.setEmail(newUser.getEmail());
+                    return userRepo.save(user);
+                })
+                .orElseThrow(() -> new AttributeNotFoundException());
 	}
 }
