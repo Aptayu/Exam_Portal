@@ -29,26 +29,26 @@ public class ExamPortal1Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("Application start point");
-		User user = new User();
-		user.setEmail("abc@gmail.com");
-		user.setEnabled(true);
-		user.setFirstname("Arpit");
-		user.setLastname("Gautam");
-		user.setPassword("abc");
-		user.setProfile("default.png");
-		
-		Set<UserRole> userRoleset = new HashSet<>();
-		UserRole userRole = new UserRole();
-		Role role = new Role();
-		role.setRole_id(11);
-		role.setRole_name("Admin");
-		userRole.setRole(role);
-		userRole.setUser(user);
-		
-		userRoleset.add(userRole);
-		
-		this.userservice.createUser(user, userRoleset);
-		System.out.println("USER IS CREATED WITH NAME " + user.getFirstname());
+//		User user = new User();
+//		user.setEmail("abc@gmail.com");
+//		user.setEnabled(true);
+//		user.setFirstname("Arpit");
+//		user.setLastname("Gautam");
+//		user.setPassword("abc");
+//		user.setProfile("default.png");
+//		
+//		Set<UserRole> userRoleset = new HashSet<>();
+//		UserRole userRole = new UserRole();
+//		Role role = new Role();
+//		role.setRole_id(11);
+//		role.setRole_name("Admin");
+//		userRole.setRole(role);
+//		userRole.setUser(user);
+//		
+//		userRoleset.add(userRole);
+//		
+//		this.userservice.createUser(user, userRoleset);
+//		System.out.println("USER IS CREATED WITH NAME " + user.getFirstname());
 	}
 
 }
