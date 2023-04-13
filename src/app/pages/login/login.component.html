@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="container text-center">
+        <img src="/assets/Exam_portal.JPG" alt="Image Description" width="100" height="100" />
+    </div>
+
+    <div class="container mt-1 col-sm-6">
+        <h2 class="mb-4 text-center">Login here</h2>
+
+        <form>
+            <!-- print user on the web as json -->
+            <!-- {{user | json}} -->
+            <!-- username field -->
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Username</mat-label>
+                <input required name="username" matInput placeholder="Enter here">
+            </mat-form-field>
+            <!-- password field -->
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>password</mat-label>
+                <input required name="password" matInput placeholder="Enter here">
+            </mat-form-field>
+            <div class="container text-center">
+                <button type="submit" mat-raised-button color="primary">Login</button>
+                <!-- not recoomended to use in line CSS like below -->
+                <button style="margin-left: 20px;" mat-raised-button color="warn">Reset</button>
+            </div>
+        </form>
+
+    </div>
+</div>

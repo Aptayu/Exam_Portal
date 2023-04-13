@@ -1,0 +1,4 @@
+/* will make its width equal to its parent component width */
+.full-width{
+    width: 100%;
+}
