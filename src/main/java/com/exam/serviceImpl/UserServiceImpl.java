@@ -17,7 +17,7 @@ import com.exam.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+	 
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired

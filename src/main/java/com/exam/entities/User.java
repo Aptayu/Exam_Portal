@@ -2,17 +2,21 @@ package com.exam.entities;
 
 
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 
 import javax.persistence.*;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name ="users")
-public class User {
+public class User implements UserDetails{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +29,7 @@ public class User {
 	private String lastname;
 	private boolean enabled = true;
 	private String profile;
-//	cascade all so that if we delet user here userrole will also deleted and \fetchtype eager means when user gets pulled
+//	cascade all so that if we delete user here userrole will also deleted and \fetchtype eager means when user gets pulled
 //	userrole also gets pulled, mapped by other entity will take care of column generation
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "user")
 	@JsonIgnore
@@ -128,6 +132,45 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + userName + ", password=" + password + ", email=" + email
 				+ ", firstname=" + firstname + ", lastname=" + lastname + ", enabled=" + enabled + "]";
+	}
+//	methods of userDetails to be implemented
+	
+	
+//this method is very important to assign get roles for a user 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+//		return collection containing authority
+		Set<Authority> set = new HashSet<>();
+		
+		this.userRole.forEach(userRole -> {
+			set.add(new Authority(userRole.getRole().getRole_name()));
+		} );
+		return set;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 	
