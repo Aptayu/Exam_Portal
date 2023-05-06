@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.exam.Utils.JwtUtils;
@@ -59,12 +60,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String username = null;
 		String jwtToken = null;
 
-		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
+		if (requestTokenHeader != null && requestTokenHeader.trim().startsWith("Bearer")) {
 
 //			yes
 			jwtToken = requestTokenHeader.substring(7);
 			try {
-				username = this.jwtUtils.extractUsername(jwtToken);
+				username = this.jwtUtils.getUsernameFromToken(jwtToken);
+				logger.info("username"+ username);
 			} catch (ExpiredJwtException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -83,7 +85,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 //		validate token
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			final UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
+			logger.info("validation of token begins..");
 			if (this.jwtUtils.validateToken(jwtToken, userDetails)) {
 //				token is valid
 

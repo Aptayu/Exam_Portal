@@ -40,16 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
         		.csrf().disable()
-        		.cors().disable()
         		.authorizeRequests()
-                .antMatchers("/generate-token","/user/").permitAll()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .and()
+                .httpBasic()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorisedHandler)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
           
-        
+        http.cors();
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
       
     }
