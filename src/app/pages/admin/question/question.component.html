@@ -1,0 +1,31 @@
+<h1 class="text-center ">Your Quiz Questions are here !!</h1>
+<div class="mt-5" *ngIf="quizData">
+    <ol>
+        <li *ngFor="let question of quizData; let i = index">
+            <h3>{{ question.question }}</h3>
+            <div class="options">
+                <div class="options-line">
+                    <div *ngFor="let option of question.shuffledOptions.slice(0, 2); let j = index"
+                        [ngClass]="{ 'selected': isOptionSelected(i, j) }" (click)="selectOption(i, j)"
+                        class="option-box">
+                        <span class="option-letter">{{ getAlphabet(j) }}.</span>
+                        <span class="option-text">{{ option }}</span>
+                    </div>
+                </div>
+                <br>
+                <div class="options-line">
+                    <div *ngFor="let option of question.shuffledOptions.slice(2); let j = index"
+                        [ngClass]="{ 'selected': isOptionSelected(i, j + 2) }" (click)="selectOption(i, j + 2)"
+                        class="option-box">
+                        <span class="option-letter">{{ getAlphabet(j + 2) }}.</span>
+                        <span class="option-text">{{ option }}</span>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </li>
+    </ol>
+    <div class="container text-center">
+        <button type="button" class="btn btn-primary" (click)="submitQuiz()">Post Quiz</button>
+    </div>
+</div>

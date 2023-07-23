@@ -1,3 +1,20 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+  .auth-links {
+    display: flex;
+    align-items: center;
+  }
+  
+  .auth-username {
+    display: flex;
+    align-items: center;
+  }
+  
+  .auth-username-text {
+    margin-right: 8px;
+  }
+  .my-icon {
+    color: red;
+    font-size: 70px;
+  }

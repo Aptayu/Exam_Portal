@@ -1,13 +1,26 @@
 
     <mat-toolbar color="primary">
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <!-- directly use can use methods of imported service in components -->
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" *ngIf= "isLoggedIn">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Exam Portal</span>
       <span class="example-spacer"></span>
       <div class="auth-links">
-        <button mat-button routerLink="/login" routerLinkActive="active" class="auth-button">Login</button>
-        <button mat-button routerLink="/signup" routerLinkActive="active" class="auth-button">Register</button>
+        <button mat-button routerLink="/login" routerLinkActive="active" class="auth-button" *ngIf= "(!isLoggedIn && !isLoginPage())">Login</button>
+        <button mat-button routerLink="/signup" routerLinkActive="active" class="auth-button" *ngIf= "(!isLoggedIn && !isRegisterPage())">Register</button>
+        <div class="auth-username" *ngIf="isLoggedIn">
+          <p class="auth-username-text">Welcome {{username}}</p>
+          <button (click)="onLogout()" mat-button routerLink="/login" routerLinkActive="active" class="auth-button"><mat-icon
+            aria-hidden="false"
+            aria-label="logout icon"
+            fontIcon="logout"
+            [ariaSetSize]="70"
+            color="warn"
+            class=".my-icon"
+          ></mat-icon>
+          </button>
+        </div>
       </div>
     </mat-toolbar>
 
